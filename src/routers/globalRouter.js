@@ -1,15 +1,16 @@
 import express from "express";
-import {tranding} from "../controller/videoController";
-import {join} from "../controller/userController";
+import {join, login} from "../controller/userController";
+import {trending, search} from "../controller/videoController";
 
 const globalRouter = express.Router();
 
 // router와 controller를 섞어서 쓰는건 좋지 않다. 폴더를 나눈다.
 // globalController는 필요가 없다. url을 깔끔하게 하기위해 쓰는 것 일 뿐
 
-globalRouter.get("/", tranding);
+globalRouter.get("/", trending);
 globalRouter.get("/join", join);
-
+globalRouter.get("/login", login);
+globalRouter.get("/search", search);
 // 다른 js에 import하려면 exprot 해야한다. 
 // defalut의 기능   1. import시 이름 다르게 해도 됨 하지만 보통 같게 함
 //                  2. export defalut는 단 하나 밖에 export 하지 못함.    
