@@ -1,6 +1,6 @@
 import express from "express";
-import {join, login} from "../controller/userController";
-import {trending, search} from "../controller/videoController";
+import { join, login } from "../controller/userController";
+import { trending } from "../controller/videoController";
 
 const globalRouter = express.Router();
 
@@ -10,9 +10,9 @@ const globalRouter = express.Router();
 globalRouter.get("/", trending);
 globalRouter.get("/join", join);
 globalRouter.get("/login", login);
-globalRouter.get("/search", search);
-// 다른 js에 import하려면 exprot 해야한다. 
+
+// 다른 js에 import하려면 exprot 해야한다.
 // defalut의 기능   1. import시 이름 다르게 해도 됨 하지만 보통 같게 함
-//                  2. export defalut는 단 하나 밖에 export 하지 못함.    
+//                  2. export defalut는 단 하나 밖에 export 하지 못함.
 //                  3. controller 전부다 import 하는 법 {object} ex) {edit, watch}을 넣는다.
 export default globalRouter;
