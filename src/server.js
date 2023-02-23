@@ -1,4 +1,5 @@
 // import 이름은 상관없다 import 변수이름 from 패키지이름
+import "./db";
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
@@ -31,7 +32,7 @@ app.use("/users", userRouter);
 // *순서 중요*
 
 const handleListeing = () =>
-  console.log(`Server listenting on port http://localhost:${PORT} ✔`);
+  console.log(`Server listenting on port http://localhost:${PORT}✅`);
 
 // port는 컴퓨터의 창문이나 문 같은 것 가고자 하는 문은 url로 정해짐 (routes)
 app.listen(PORT, handleListeing);
