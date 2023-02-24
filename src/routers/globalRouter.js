@@ -1,13 +1,13 @@
 import express from "express";
 import { join, login } from "../controller/userController";
-import { trending } from "../controller/videoController";
+import { home } from "../controller/videoController";
 
 const globalRouter = express.Router();
 
 // router와 controller를 섞어서 쓰는건 좋지 않다. 폴더를 나눈다.
 // globalController는 필요가 없다. url을 깔끔하게 하기위해 쓰는 것 일 뿐
 
-globalRouter.get("/", trending);
+globalRouter.get("/", home);
 globalRouter.get("/join", join);
 globalRouter.get("/login", login);
 

@@ -1,12 +1,11 @@
 // import 이름은 상관없다 import 변수이름 from 패키지이름
-import "./db";
+// server.js는 server 관련 코드만 처리
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 //  ./은 지금의 장소를 의미
-const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
@@ -31,8 +30,4 @@ app.use("/users", userRouter);
 // use는 어느 URL에도 작동하는 global middleware를 만들어 준다
 // *순서 중요*
 
-const handleListeing = () =>
-  console.log(`Server listenting on port http://localhost:${PORT}✅`);
-
-// port는 컴퓨터의 창문이나 문 같은 것 가고자 하는 문은 url로 정해짐 (routes)
-app.listen(PORT, handleListeing);
+export default app;
