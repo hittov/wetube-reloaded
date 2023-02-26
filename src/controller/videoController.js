@@ -16,6 +16,7 @@ import Video from "../models/Video";
    render한 것은 재사용 불가능 express 오류*/
 export const home = async (req, res) => {
   const videos = await Video.find({});
+  console.log(videos);
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -42,7 +43,26 @@ export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "UploadVideo" });
 };
 
-export const postUpload = (req, res) => {
-  const { title } = req.body;
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  try {
+    const { title, description, hashtags } = req.body;
+    await Video.create({
+      // Video.create = (const video = new Video) class instance 생성과정 생략하고 바로 DB에 저장
+      title,
+      description,
+      // createdAt: Date.now(),
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+      // meta: {
+      //   views: 0,
+      //   rating: 0,
+      // },
+    });
+    // await video.save(); // save()는 promise를 return / await > 저장 되는 걸 기다려야 한다
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      pageTitle: "UploadVideo",
+      errorMessage: error._message,
+    });
+  }
 };
