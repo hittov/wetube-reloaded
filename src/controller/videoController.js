@@ -1,20 +1,22 @@
-// pug 랜더링 res.render("home");
-// render명은 파일명과 같아야함 띄어쓰기 X 대문자 X
-// render는 2개의 argument 1. view 이름 2. 템플릿 변수 {변수: "value" 원하는 만큼}
-// const fakeUser = {
-//   username: "pty",
-//   loggedIn: false,
-// };
-// Mixins는 똑똑한 partial이다.
-// videos:videos = videos(ES6)방식
+/* pug 랜더링 res.render("home");
+ render명은 파일명과 같아야함 띄어쓰기 X 대문자 X
+ render는 2개의 argument 1. view 이름 2. 템플릿 변수 {변수: "value" 원하는 만큼}
+ const fakeUser = {
+   username: "pty",
+   loggedIn: false,
+ };
+ Mixins는 똑똑한 partial이다.
+ videos:videos = videos(ES6)방식 */
 import Video from "../models/Video";
+/* Video.find({}, (error, videos) => {
+  res.render("home", { pageTitle: "Home", videos });
+}); */
 
-export const home = (req, res) => {
-  console.log("Start");
-  Video.find({}, (error, videos) => {
-    console.log("Search Finished");
-    return res.render("home", { pageTitle: "Home", videos: [] });
-  });
+/* return은 함수의 마무리 짓는 역할로 사용
+   render한 것은 재사용 불가능 express 오류*/
+export const home = async (req, res) => {
+  const videos = await Video.find({});
+  return res.render("home", { pageTitle: "Home", videos });
 };
 
 export const watch = (req, res) => {

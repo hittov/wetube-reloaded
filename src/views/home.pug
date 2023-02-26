@@ -3,8 +3,6 @@ extends base
 include mixins/video
 
 block content 
-    h2 Welcome here you will se the trending video
-   
     each item in videos
         +video(item)
     else  
