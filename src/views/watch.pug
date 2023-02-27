@@ -2,7 +2,9 @@ extends base.pug
 
 //- #{video.views === 1 ? "view" : "views" 삼항 연산자
 block content 
-    h3 #{video.views} #{video.views === 1 ? "view" : "views"} 
     //- /edit 이라하면 어디에 있든 root 경로 + /edit으로 간다. - absolute url
     //- / 가 없으면 relative url로 현재 위치 /edit 붙여줌
+    div 
+        p=video.description
+        small=video.createdAt
     a(href=`${video.id}/edit`) Edit Video &rarr;

@@ -20,11 +20,12 @@ export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home", videos });
 };
 
-export const watch = (req, res) => {
+export const watch = async (req, res) => {
   // const id = req.pramas.id;
   const { id } = req.params; // ES6 방식
-
-  return res.render("watch", { pageTitle: `Watching` });
+  const video = await Video.findById(id);
+  console.log(video);
+  return res.render("watch", { pageTitle: video.title, video });
 };
 // getEdit form 화면에 보여주는 녀석
 export const getEdit = (req, res) => {
