@@ -24,19 +24,36 @@ export const watch = async (req, res) => {
   // const id = req.pramas.id;
   const { id } = req.params; // ES6 방식
   const video = await Video.findById(id);
-  console.log(video);
+  if (!video) {
+    // 에러 체크 먼저
+    return res.render("404", { pageTitle: "Video not found." });
+  }
   return res.render("watch", { pageTitle: video.title, video });
 };
 // getEdit form 화면에 보여주는 녀석
-export const getEdit = (req, res) => {
+export const getEdit = async (req, res) => {
   const { id } = req.params;
-  return res.render("edit", { pageTitle: `Editing` });
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+  return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
 };
 // postEdit 변경사항 저장해주는 녀석
 // redirect 브라우저가 자동으로 이동 하도록 하는 것
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
   const { id } = req.params;
-  const { title } = req.body; // = cosnt title = req.body.title;
+  const { title, description, hashtags } = req.body;
+  const video = await Video.exists({ _id: id });
+  if (!video) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+  await Video.findByIdAndUpdate(id, {
+    title,
+    description,
+    hashtags: Video.formatHashtags(hashtags),
+  });
+  // startsWith() 특정 문자로 시작하는지 확인하여 결과를 true/false 반환
   return res.redirect(`/videos/${id}`);
 };
 
@@ -52,7 +69,7 @@ export const postUpload = async (req, res) => {
       title,
       description,
       // createdAt: Date.now(),
-      hashtags: hashtags.split(",").map((word) => `#${word}`),
+      hashtags: Video.formatHashtags(hashtags),
       // meta: {
       //   views: 0,
       //   rating: 0,
