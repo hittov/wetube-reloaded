@@ -5,6 +5,7 @@ import {
   postEdit,
   getUpload,
   postUpload,
+  deleteVideo,
 } from "../controller/videoController";
 //  ..은 폴더에서 나가는걸 의미
 const videoRouter = express.Router();
@@ -17,5 +18,6 @@ const videoRouter = express.Router();
 videoRouter.get("/:id([0-9a-f]{24})", watch);
 // 하나의 url에 get과 post 한번에 작성하는 shotcut 코드
 videoRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
+videoRouter.route("/:id([0-9a-f]{24})/delete").get(deleteVideo);
 videoRouter.route("/upload").get(getUpload).post(postUpload);
 export default videoRouter;
