@@ -1,6 +1,7 @@
 // init.js는 서버를 시작하는데 필요한 모든 것들을 import 시키는 역할
 import "./db";
 import "./models/Video";
+import "./models/User";
 import app from "./server";
 
 const PORT = 5000;

@@ -2,7 +2,7 @@
 // server.js는 server 관련 코드만 처리
 import express from "express";
 import morgan from "morgan";
-import globalRouter from "./routers/globalRouter";
+import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 //  ./은 지금의 장소를 의미
@@ -17,7 +17,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 // express.urlencoded form의 body를 이해함 / extended body에 있는 정보를 보기 좋게 형식을 갖춤
-app.use("/", globalRouter);
+app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
