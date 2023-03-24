@@ -2,6 +2,7 @@ extends base
 
 block content
     form(method="POST")
+        //- local은 pug에 접근이 가능함으로 value값을 쓸 수 있다
         input(placeholder="Name", name="name", type="text", required, value=loggedInUser.name)
         input(placeholder="Email", name="email", type="email", required, value=loggedInUser.email)
         input(placeholder="Username", name="username", type="text", required, value=loggedInUser.username)

@@ -6,6 +6,7 @@ import {
   postLogin,
 } from "../controller/userController";
 import { home, search } from "../controller/videoController";
+import { publicOnlyMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();
 
@@ -13,8 +14,12 @@ const rootRouter = express.Router();
 // globalController는 필요가 없다. url을 깔끔하게 하기위해 쓰는 것 일 뿐
 
 rootRouter.get("/", home);
-rootRouter.route("/join").get(getJoin).post(postJoin);
-rootRouter.route("/login").get(getLogin).post(postLogin);
+rootRouter.route("/join").all(publicOnlyMiddleware).get(getJoin).post(postJoin);
+rootRouter
+  .route("/login")
+  .all(publicOnlyMiddleware)
+  .get(getLogin)
+  .post(postLogin);
 rootRouter.get("/search", search);
 
 // 다른 js에 import하려면 exprot 해야한다.
